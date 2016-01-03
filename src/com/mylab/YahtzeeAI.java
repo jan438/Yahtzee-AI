@@ -9,11 +9,29 @@ public class YahtzeeAI implements YahtzeeConstants {
 	private static boolean[][] categoryHasBeenChosen;
 	private static int delay = 500;
 	private final static Map<String, DiceSelection> allSelections = new HashMap<String, DiceSelection>();
+	private final static List<String> categories = new ArrayList<String>();
 
 	static Random rgen = new Random();
 
 	public static void main(String[] args) {
 		System.out.println("Hello World!");
+		categories.add("ONE");
+		categories.add("TWO");
+		categories.add("THREE");
+		categories.add("FOUR");
+		categories.add("FIVE");
+		categories.add("SIX");
+		categories.add("UPPERSCORE");
+		categories.add("UPPERBONUS");
+		categories.add("THREEOFAKIND");
+		categories.add("CARRE");
+		categories.add("FULLHOUSE");
+		categories.add("SMALLSTRAIGHT");
+		categories.add("LARGESTRAIGHT");
+		categories.add("YAHTZEE");
+		categories.add("CHANCE");
+		categories.add("LOWERSCORE");
+		categories.add("TOTAL");
 		playGame();
 		System.out.println("Goodbye World!");
 	}
@@ -337,9 +355,9 @@ public class YahtzeeAI implements YahtzeeConstants {
 		System.out.println("Printing scorecard...");
 		for (int i = 1; i <= N_CATEGORIES; i++) {
 			if (categoryHasBeenChosen[i][player] == true) {
-				System.out.println("[" + i + "]: " + scorecard[i][player]);
+				System.out.println("[" + categories.get(i-1) + "]: " + scorecard[i][player]);
 			} else {
-				System.out.println("[" + i + "]: ");
+				System.out.println("[" + categories.get(i-1) + "]: ");
 			}
 		}
 	}
