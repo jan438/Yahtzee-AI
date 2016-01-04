@@ -4,8 +4,6 @@ import java.util.*;
 
 public class YahtzeeAI {
 
-	public static final int DELAY = 2000;
-
 	public static final int MAX_PLAYERS = 4;
 
 	public static final int MAX_ROLLS = 3;
@@ -46,6 +44,7 @@ public class YahtzeeAI {
 	private final static List<String> categories = new ArrayList<String>();
 
 	static Random rgen = new Random();
+	static int countDiceCombinations = 0; 
 
 	public static void main(String[] args) {
 		System.out.println("Hello World!");
@@ -190,6 +189,7 @@ public class YahtzeeAI {
 	}
 
 	private static List<DiceCombination> generateDiceCombinations(boolean[] selections, int[] dice) {
+		countDiceCombinations = 0; 
 		List<DiceCombination> result = new ArrayList<DiceCombination>();
 		int lb0 = (selections[0] == false ? dice[0] : 1);
 		int ub0 = (selections[0] == false ? dice[0] : 6);
@@ -214,11 +214,13 @@ public class YahtzeeAI {
 							int[] arr = { d0, d1, d2, d3, d4 };
 							DiceCombination combo = new DiceCombination(arr);
 							result.add(combo);
+							countDiceCombinations++;
 						}
 					}
 				}
 			}
 		}
+		System.out.println("CountDiceCombinations: " + countDiceCombinations);
 		return result;
 	}
 
