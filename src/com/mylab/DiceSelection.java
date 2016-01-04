@@ -17,7 +17,12 @@ public class DiceSelection {
 	private String createName() {
 		String result = "";
 		for (int i = 0; i < selection.length; i++) {
-			result += selection[i];
+			if (selection[i]) {
+				result += "1";
+			}
+			else {
+				result += "0";
+			}
 		}
 		return result;
 	}
