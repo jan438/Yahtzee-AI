@@ -143,7 +143,7 @@ public class YahtzeeAI {
 		System.out.println("Turn is over.");
 		int category = chooseBestCategory(dice);
 		categoryHasBeenChosen[category] = true;
-		System.out.println("Choosing category " + category);
+		System.out.println("Choosing category " + categories.get(category - 1));
 		boolean isValid = isDiceValidForCategory(dice, category);
 		System.out.println("Dice are valid for this category: " + isValid);
 		int score = calculateCategoryScore(category, isValid, dice);
