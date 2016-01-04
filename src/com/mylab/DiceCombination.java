@@ -2,7 +2,7 @@ package com.mylab;
 
 import java.util.*;
 
-public class DiceCombination implements YahtzeeConstants {
+public class DiceCombination {
 
 	private int[] combination = new int[5];
 	private String combinationName;
