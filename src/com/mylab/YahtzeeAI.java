@@ -36,9 +36,9 @@ public class YahtzeeAI {
 	public static final int YAHTZEE_SCORE = 50;
 	public static final int UPPER_BONUS_SCORE = 35;
 	
-	private static int scorecard[][];
+	private static int scorecard[];
 	private final static int nPlayers = 1;
-	private static boolean[][] categoryHasBeenChosen;
+	private static boolean[] categoryHasBeenChosen;
 	private static int delay = 500;
 	private final static Map<String, DiceSelection> allSelections = new HashMap<String, DiceSelection>();
 	private final static List<String> categories = new ArrayList<String>();
@@ -71,8 +71,8 @@ public class YahtzeeAI {
 
 	private static void playGame() {
 		boolean gameOver = false;
-		scorecard = new int[N_CATEGORIES + 1][nPlayers + 1];
-		categoryHasBeenChosen = new boolean[N_CATEGORIES + 1][nPlayers + 1];
+		scorecard = new int[N_CATEGORIES + 1];
+		categoryHasBeenChosen = new boolean[N_CATEGORIES + 1];
 		int round = 1;
 		while (!gameOver) {
 			playRound(round);
@@ -80,7 +80,7 @@ public class YahtzeeAI {
 				gameOver = true;
 			round++;
 		}
-		System.out.println("Congratulations, you are the winner with a total score of " + scorecard[TOTAL][1] + "!");
+		System.out.println("Congratulations, you are the winner with a total score of " + scorecard[TOTAL] + "!");
 		try {
 			Thread.sleep(delay);
 		} catch (InterruptedException e) {
@@ -140,7 +140,7 @@ public class YahtzeeAI {
 		}
 		System.out.println("Turn is over.");
 		int category = chooseBestCategory(player, dice);
-		categoryHasBeenChosen[category][player] = true;
+		categoryHasBeenChosen[category] = true;
 		System.out.println("Choosing category " + category);
 		boolean isValid = isDiceValidForCategory(dice, category);
 		System.out.println("Dice are valid for this category: " + isValid);
@@ -228,7 +228,7 @@ public class YahtzeeAI {
 		int categoryIndex = 0;
 		int highestScore = -1;
 		for (int i = 1; i < 16; i++) { // sloppy, fix later.
-			if (categoryHasBeenChosen[i][player] == false) {
+			if (categoryHasBeenChosen[i] == false) {
 				boolean isValid = isDiceValidForCategory(dice, i);
 				int score = calculateCategoryScore(i, isValid, dice);
 				if (score > highestScore) {
@@ -353,16 +353,16 @@ public class YahtzeeAI {
 	}
 
 	private static void updateScore(int player, int category, int score) {
-		scorecard[category][player] = score;
+		scorecard[category] = score;
 	}
 
 	private static void evaluateTotalScores(int player, int round) {
 		updateScore(player, UPPER_SCORE, sumScores(player, ONES, SIXES));
 		updateScore(player, LOWER_SCORE, sumScores(player, THREE_OF_A_KIND, CHANCE));
 		updateScore(player, TOTAL,
-				(scorecard[UPPER_SCORE][player] + scorecard[UPPER_BONUS][player] + scorecard[LOWER_SCORE][player]));
+				(scorecard[UPPER_SCORE] + scorecard[UPPER_BONUS] + scorecard[LOWER_SCORE]));
 		if (isUpperScoreComplete(player)) {
-			if (scorecard[UPPER_SCORE][player] >= 63) {
+			if (scorecard[UPPER_SCORE] >= 63) {
 				updateScore(player, UPPER_BONUS, UPPER_BONUS_SCORE);
 			} else {
 				updateScore(player, UPPER_BONUS, 0);
@@ -373,7 +373,7 @@ public class YahtzeeAI {
 	private static int sumScores(int player, int startCategory, int endCategory) {
 		int result = 0;
 		for (int i = startCategory; i <= endCategory; i++) {
-			result += scorecard[i][player];
+			result += scorecard[i];
 
 		}
 		return result;
@@ -381,7 +381,7 @@ public class YahtzeeAI {
 
 	private static boolean isUpperScoreComplete(int player) {
 		for (int i = ONES; i <= SIXES; i++) {
-			if (scorecard[i][player] == 0)
+			if (scorecard[i] == 0)
 				return false;
 		}
 		return true;
@@ -390,12 +390,11 @@ public class YahtzeeAI {
 	private static void printScorecard(int player) {
 		System.out.println("Printing scorecard...");
 		for (int i = 1; i <= N_CATEGORIES; i++) {
-			if (categoryHasBeenChosen[i][player] == true) {
-				System.out.println("[" + categories.get(i-1) + "]: " + scorecard[i][player]);
+			if (categoryHasBeenChosen[i] == true) {
+				System.out.println("[" + categories.get(i-1) + "]: " + scorecard[i]);
 			} else {
 				System.out.println("[" + categories.get(i-1) + "]: ");
 			}
 		}
 	}
-
 }
