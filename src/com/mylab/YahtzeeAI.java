@@ -35,16 +35,15 @@ public class YahtzeeAI {
 	public static final int LARGE_STRAIGHT_SCORE = 40;
 	public static final int YAHTZEE_SCORE = 50;
 	public static final int UPPER_BONUS_SCORE = 35;
-	
+
 	private static int scorecard[];
-	private final static int nPlayers = 1;
 	private static boolean[] categoryHasBeenChosen;
 	private static int delay = 500;
 	private final static Map<String, DiceSelection> allSelections = new HashMap<String, DiceSelection>();
 	private final static List<String> categories = new ArrayList<String>();
 
 	static Random rgen = new Random();
-	static int countDiceCombinations = 0; 
+	static int countDiceCombinations = 0;
 
 	public static void main(String[] args) {
 		System.out.println("Hello World!");
@@ -89,14 +88,12 @@ public class YahtzeeAI {
 	}
 
 	private static void playRound(int round) {
-		for (int i = 1; i <= nPlayers; i++) {
-			playTurn(i, round);
-			evaluateTotalScores(i, round);
-			printScorecard(i);
-		}
+		playTurn(round);
+		evaluateTotalScores(round);
+		printScorecard();
 	}
 
-	public static void playTurn(int player, int round) {
+	public static void playTurn(int round) {
 		System.out.println("Playing round " + round);
 		int[] dice = new int[5];
 		generateAllDiceSelections();
@@ -123,7 +120,7 @@ public class YahtzeeAI {
 				while (it.hasNext()) {
 					DiceCombination diceCombo = it.next();
 					int[] comboDice = diceCombo.getCombination();
-					int category = chooseBestCategory(player, comboDice);
+					int category = chooseBestCategory(comboDice);
 					boolean isValid = isDiceValidForCategory(comboDice, category);
 					int score = calculateCategoryScore(category, isValid, comboDice);
 					diceCombo.updateCombination(dice, category, score, selectedDice);
@@ -139,14 +136,14 @@ public class YahtzeeAI {
 			selectedDice = bestSelection.getDiceSelection();
 		}
 		System.out.println("Turn is over.");
-		int category = chooseBestCategory(player, dice);
+		int category = chooseBestCategory(dice);
 		categoryHasBeenChosen[category] = true;
 		System.out.println("Choosing category " + category);
 		boolean isValid = isDiceValidForCategory(dice, category);
 		System.out.println("Dice are valid for this category: " + isValid);
 		int score = calculateCategoryScore(category, isValid, dice);
 		System.out.println("Score for this category: " + score);
-		updateScore(player, category, score);
+		updateScore(category, score);
 	}
 
 	private static void rollDice(int roll, int[] dice, boolean[] isDieSelected) {
@@ -189,7 +186,7 @@ public class YahtzeeAI {
 	}
 
 	private static List<DiceCombination> generateDiceCombinations(boolean[] selections, int[] dice) {
-		countDiceCombinations = 0; 
+		countDiceCombinations = 0;
 		List<DiceCombination> result = new ArrayList<DiceCombination>();
 		int lb0 = (selections[0] == false ? dice[0] : 1);
 		int ub0 = (selections[0] == false ? dice[0] : 6);
@@ -224,7 +221,7 @@ public class YahtzeeAI {
 		return result;
 	}
 
-	private static int chooseBestCategory(int player, int[] dice) {
+	private static int chooseBestCategory(int[] dice) {
 		int categoryIndex = 0;
 		int highestScore = -1;
 		for (int i = 1; i < 16; i++) { // sloppy, fix later.
@@ -352,25 +349,24 @@ public class YahtzeeAI {
 		return false;
 	}
 
-	private static void updateScore(int player, int category, int score) {
+	private static void updateScore(int category, int score) {
 		scorecard[category] = score;
 	}
 
-	private static void evaluateTotalScores(int player, int round) {
-		updateScore(player, UPPER_SCORE, sumScores(player, ONES, SIXES));
-		updateScore(player, LOWER_SCORE, sumScores(player, THREE_OF_A_KIND, CHANCE));
-		updateScore(player, TOTAL,
-				(scorecard[UPPER_SCORE] + scorecard[UPPER_BONUS] + scorecard[LOWER_SCORE]));
-		if (isUpperScoreComplete(player)) {
+	private static void evaluateTotalScores(int round) {
+		updateScore(UPPER_SCORE, sumScores(ONES, SIXES));
+		updateScore(LOWER_SCORE, sumScores(THREE_OF_A_KIND, CHANCE));
+		updateScore(TOTAL, (scorecard[UPPER_SCORE] + scorecard[UPPER_BONUS] + scorecard[LOWER_SCORE]));
+		if (isUpperScoreComplete()) {
 			if (scorecard[UPPER_SCORE] >= 63) {
-				updateScore(player, UPPER_BONUS, UPPER_BONUS_SCORE);
+				updateScore(UPPER_BONUS, UPPER_BONUS_SCORE);
 			} else {
-				updateScore(player, UPPER_BONUS, 0);
+				updateScore(UPPER_BONUS, 0);
 			}
 		}
 	}
 
-	private static int sumScores(int player, int startCategory, int endCategory) {
+	private static int sumScores(int startCategory, int endCategory) {
 		int result = 0;
 		for (int i = startCategory; i <= endCategory; i++) {
 			result += scorecard[i];
@@ -379,7 +375,7 @@ public class YahtzeeAI {
 		return result;
 	}
 
-	private static boolean isUpperScoreComplete(int player) {
+	private static boolean isUpperScoreComplete() {
 		for (int i = ONES; i <= SIXES; i++) {
 			if (scorecard[i] == 0)
 				return false;
@@ -387,13 +383,13 @@ public class YahtzeeAI {
 		return true;
 	}
 
-	private static void printScorecard(int player) {
+	private static void printScorecard() {
 		System.out.println("Printing scorecard...");
 		for (int i = 1; i <= N_CATEGORIES; i++) {
 			if (categoryHasBeenChosen[i] == true) {
-				System.out.println("[" + categories.get(i-1) + "]: " + scorecard[i]);
+				System.out.println("[" + categories.get(i - 1) + "]: " + scorecard[i]);
 			} else {
-				System.out.println("[" + categories.get(i-1) + "]: ");
+				System.out.println("[" + categories.get(i - 1) + "]: ");
 			}
 		}
 	}
