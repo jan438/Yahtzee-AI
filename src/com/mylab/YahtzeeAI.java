@@ -153,6 +153,20 @@ public class YahtzeeAI {
 				dice[i] = die;
 			}
 		}
+		sortdices(dice);
+	}
+
+	private static void sortdices(int[] dice) {
+		int temp;
+		for (int i = dice.length - 1; i >= 1; --i) {
+			for (int j = 0; j < i; ++j) {
+				if (dice[j] > dice[j + 1]) {
+					temp = dice[j];
+					dice[j] = dice[j + 1];
+					dice[j + 1] = temp;
+				}
+			}
+		}
 	}
 
 	private static String diceToString(int[] dice) {
