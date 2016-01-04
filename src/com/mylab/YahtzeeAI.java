@@ -4,10 +4,6 @@ import java.util.*;
 
 public class YahtzeeAI {
 
-	public static final int MAX_PLAYERS = 4;
-
-	public static final int MAX_ROLLS = 3;
-
 	public static final int N_CATEGORIES = 17;
 
 	public static final int N_SCORING_CATEGORIES = 13;
@@ -103,7 +99,7 @@ public class YahtzeeAI {
 		int[] dice = new int[5];
 		generateAllDiceSelections();
 		boolean[] selectedDice = new boolean[5];
-		for (int rolls = 0; rolls < MAX_ROLLS; rolls++) {
+		for (int rolls = 0; rolls < 3; rolls++) {
 			System.out.println("Rolling dice...");
 			try {
 				Thread.sleep(delay);
@@ -112,8 +108,7 @@ public class YahtzeeAI {
 			}
 			rollDice(rolls, dice, selectedDice);
 			System.out.println("Dice for roll " + rolls + ": " + diceToString(dice));
-			if (rolls == MAX_ROLLS - 1)
-				break;
+			if (rolls == 2)	break;
 			DiceSelection bestSelection = null;
 			double bestEValue = -1.0;
 			for (String name : allSelections.keySet()) {
