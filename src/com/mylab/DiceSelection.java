@@ -2,9 +2,9 @@ package com.mylab;
 
 import java.util.*;
 
-public class DiceSelection implements YahtzeeConstants {
+public class DiceSelection {
 
-	private boolean[] selection = new boolean[N_DICE];
+	private boolean[] selection = new boolean[5];
 	private String name;
 	private List<DiceCombination> allDiceCombinations = new ArrayList<DiceCombination>();
 	private double evalue = 0.0;

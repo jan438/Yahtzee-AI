@@ -4,8 +4,6 @@ public interface YahtzeeConstants {
 
 	public static final int DELAY = 2000;
 
-	public static final int N_DICE = 5;
-
 	public static final int MAX_PLAYERS = 4;
 
 	public static final int MAX_ROLLS = 3;

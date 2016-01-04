@@ -4,7 +4,7 @@ import java.util.*;
 
 public class DiceCombination implements YahtzeeConstants {
 
-	private int[] combination = new int[N_DICE];
+	private int[] combination = new int[5];
 	private String combinationName;
 	private int category;
 	private int score;
@@ -46,7 +46,7 @@ public class DiceCombination implements YahtzeeConstants {
 	}
 
 	public boolean[] getNonmatchingDiceForReroll(int[] dice) {
-		boolean[] diceSelections = new boolean[N_DICE];
+		boolean[] diceSelections = new boolean[5];
 		for (int i = 0; i < diceSelections.length; i++) {
 			diceSelections[i] = true;
 		}

@@ -65,9 +65,9 @@ public class YahtzeeAI implements YahtzeeConstants {
 
 	public static void playTurn(int player, int round) {
 		System.out.println("Playing round " + round);
-		int[] dice = new int[N_DICE];
+		int[] dice = new int[5];
 		generateAllDiceSelections();
-		boolean[] selectedDice = new boolean[N_DICE];
+		boolean[] selectedDice = new boolean[5];
 		for (int rolls = 0; rolls < MAX_ROLLS; rolls++) {
 			System.out.println("Rolling dice...");
 			try {
@@ -117,7 +117,7 @@ public class YahtzeeAI implements YahtzeeConstants {
 	}
 
 	private static void rollDice(int roll, int[] dice, boolean[] isDieSelected) {
-		for (int i = 0; i < N_DICE; i++) {
+		for (int i = 0; i < 5; i++) {
 			if (roll == 0 || isDieSelected[i]) {
 				int die = rgen.nextInt(6) + 1;
 				dice[i] = die;
@@ -209,7 +209,7 @@ public class YahtzeeAI implements YahtzeeConstants {
 
 	private static boolean isDiceValidForCategory(int[] dice, int category) {
 		if (category >= ONES && category <= SIXES) {
-			for (int i = 0; i < N_DICE; i++) {
+			for (int i = 0; i < 5; i++) {
 				if (dice[i] == category)
 					return true;
 			}
@@ -283,7 +283,7 @@ public class YahtzeeAI implements YahtzeeConstants {
 
 	private static int[] diceValueFrequency(int[] dice) {
 		int[] result = new int[6];
-		for (int i = 0; i < N_DICE; i++) {
+		for (int i = 0; i < 5; i++) {
 			result[dice[i] - 1]++;
 		}
 		return result;
@@ -291,7 +291,7 @@ public class YahtzeeAI implements YahtzeeConstants {
 
 	private static int sumDice(int[] dice, int dieValueRequirement) {
 		int result = 0;
-		for (int i = 0; i < N_DICE; i++) {
+		for (int i = 0; i < 5; i++) {
 			if (dieValueRequirement == 0) {
 				result += dice[i];
 			} else {
