@@ -5,7 +5,6 @@ import java.util.*;
 public class DiceCombination {
 
 	private int[] combination = new int[5];
-	private String combinationName;
 	private int category;
 	private int score;
 	private double probability;
@@ -13,19 +12,6 @@ public class DiceCombination {
 
 	public DiceCombination(int[] dice) {
 		combination = dice;
-		combinationName = createName();
-	}
-
-	private String createName() {
-		String result = "";
-		for (int i = 0; i < combination.length; i++) {
-			result += combination[i];
-		}
-		return result;
-	}
-
-	public String getName() {
-		return combinationName;
 	}
 
 	public void updateCombination(int[] dice, int cat, int sc, boolean[] selectedDice) {

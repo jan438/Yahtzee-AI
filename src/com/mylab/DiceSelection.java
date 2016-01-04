@@ -3,29 +3,10 @@ package com.mylab;
 public class DiceSelection {
 
 	private boolean[] selection = new boolean[5];
-	private String name;
 	private double evalue = 0.0;
 
 	public DiceSelection(boolean[] arr) {
 		selection = arr;
-		name = createName();
-	}
-
-	private String createName() {
-		String result = "";
-		for (int i = 0; i < selection.length; i++) {
-			if (selection[i]) {
-				result += "1";
-			}
-			else {
-				result += "0";
-			}
-		}
-		return result;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public boolean[] getDiceSelection() {
@@ -43,5 +24,17 @@ public class DiceSelection {
 	public double getEValue() {
 		return evalue;
 	}
-
+	
+	public String toString() {
+		String s = "";
+		for (int i = 0; i < selection.length; i++) {
+			if (selection[i]) {
+				s = s + "1";
+			}
+			else {
+				s = s + "0";
+			}
+		}
+		return s;
+	}
 }

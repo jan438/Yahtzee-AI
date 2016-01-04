@@ -137,7 +137,7 @@ public class YahtzeeAI {
 					bestEValue = selectionCombo.getEValue();
 				}
 			}
-			System.out.println("The best selection to choose is: " + bestSelection.getName());
+			System.out.println("The best selection to choose is: " + bestSelection.toString());
 			selectedDice = bestSelection.getDiceSelection();
 		}
 		System.out.println("Turn is over.");
@@ -196,7 +196,7 @@ public class YahtzeeAI {
 							arr[3] = (d3 == 0) ? false : true;
 							arr[4] = (d4 == 0) ? false : true;
 							DiceSelection combo = new DiceSelection(arr);
-							allSelections.put(combo.getName(), combo);
+							allSelections.put(combo.toString(), combo);
 						}
 					}
 				}
