@@ -41,6 +41,11 @@ public class YahtzeeAI {
 	private static int delay = 500;
 	private final static Map<String, DiceSelection> allSelections = new HashMap<String, DiceSelection>();
 	private final static List<String> categories = new ArrayList<String>();
+	private static int SMALL_STRAIGHT_MASK1 = (1 << 0) + (1 << 1) + (1 << 2) + (1 << 3);
+	private static int SMALL_STRAIGHT_MASK2 = (1 << 1) + (1 << 2) + (1 << 3) + (1 << 4);
+	private static int SMALL_STRAIGHT_MASK3 = (1 << 2) + (1 << 3) + (1 << 4) + (1 << 5);
+	private static int LARGE_STRAIGHT_MASK1 = (1 << 0) + (1 << 1) + (1 << 2) + (1 << 3) + (1 << 4);
+	private static int LARGE_STRAIGHT_MASK2 = (1 << 1) + (1 << 2) + (1 << 3) + (1 << 4) + (1 << 5);
 
 	static Random rgen = new Random();
 	static int countDiceCombinations = 0;
@@ -255,6 +260,7 @@ public class YahtzeeAI {
 	}
 
 	private static boolean isDiceValidForCategory(int[] dice, int category) {
+		sortdices(dice);
 		if (category >= ONES && category <= SIXES) {
 			for (int i = 0; i < 5; i++) {
 				if (dice[i] == category)
@@ -269,7 +275,7 @@ public class YahtzeeAI {
 		case FULL_HOUSE:
 			return (isNOfAKind(3, dice, true) && isNOfAKind(2, dice, true));
 		case SMALL_STRAIGHT:
-			return isSmallStraight(dice);
+			return (isSmallStraight(dice)||isLargeStraight(dice));
 		case LARGE_STRAIGHT:
 			return isLargeStraight(dice);
 		case YAHTZEE:
@@ -350,29 +356,29 @@ public class YahtzeeAI {
 	}
 
 	private static boolean isSmallStraight(int[] dice) {
-		int[] frequency = diceValueFrequency(dice);
-		for (int i = 0; i < (frequency.length - 4 + 1); i++) {
-			int nInARow = 0;
-			for (int j = 0; j < 4; j++) {
-				if (frequency[i + j] > 0)
-					nInARow++;
-			}
-			if (nInARow == 4)
-				return true;
+		int mask = 0;
+		for (int i = 0; i < 5; i++) {
+			mask = mask | (1 << (dice[i] - 1));
+		}
+		if ((mask & SMALL_STRAIGHT_MASK1) == SMALL_STRAIGHT_MASK1) {
+			return true;
+		} else if ((mask & SMALL_STRAIGHT_MASK2) == SMALL_STRAIGHT_MASK2) {
+			return true;
+		} else if ((mask & SMALL_STRAIGHT_MASK3) == SMALL_STRAIGHT_MASK3) {
+			return true;
 		}
 		return false;
 	}
 
 	private static boolean isLargeStraight(int[] dice) {
-		int[] frequency = diceValueFrequency(dice);
-		for (int i = 0; i < (frequency.length - 5 + 1); i++) {
-			int nInARow = 0;
-			for (int j = 0; j < 5; j++) {
-				if (frequency[i + j] > 0)
-					nInARow++;
-			}
-			if (nInARow == 5)
-				return true;
+		int mask = 0;
+		for (int i = 0; i < 5; i++) {
+			mask = mask | (1 << (dice[i] - 1));
+		}
+		if ((mask & LARGE_STRAIGHT_MASK1) == LARGE_STRAIGHT_MASK1) {
+			return true;
+		} else if ((mask & LARGE_STRAIGHT_MASK2) == LARGE_STRAIGHT_MASK2) {
+			return true;
 		}
 		return false;
 	}
