@@ -114,7 +114,7 @@ public class YahtzeeAI {
 				DiceSelection selectionCombo = allSelections.get(name);
 				selectedDice = selectionCombo.getDiceSelection();
 				selectionCombo.resetEValue();
-				List<DiceCombination> listDiceCombinations = generateDiceCombinations(selectedDice, dice);		
+				List<DiceCombination> listDiceCombinations = generateDiceCombinations(selectedDice, dice);
 				Iterator<DiceCombination> it = listDiceCombinations.iterator();
 				while (it.hasNext()) {
 					DiceCombination diceCombo = it.next();
@@ -139,6 +139,7 @@ public class YahtzeeAI {
 		categoryHasBeenChosen[category] = true;
 		System.out.println("Choosing category " + categories.get(category - 1));
 		boolean isValid = isDiceValidForCategory(dice, category);
+		System.out.println("Todo " + isNOfAKind(5, dice, false));
 		System.out.println("Dice are valid for this category: " + isValid);
 		int score = calculateCategoryScore(category, isValid, dice);
 		System.out.println("Score for this category: " + score);
@@ -269,7 +270,7 @@ public class YahtzeeAI {
 		case FULL_HOUSE:
 			return (isNOfAKind(3, dice, true) && isNOfAKind(2, dice, true));
 		case SMALL_STRAIGHT:
-			return (isSmallStraight(dice)||isLargeStraight(dice));
+			return (isSmallStraight(dice) || isLargeStraight(dice));
 		case LARGE_STRAIGHT:
 			return isLargeStraight(dice);
 		case YAHTZEE:
