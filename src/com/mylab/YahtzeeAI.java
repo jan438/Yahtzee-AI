@@ -321,23 +321,18 @@ public class YahtzeeAI {
 
 	private static boolean isNOfAKind(int n, int[] dice, boolean exact) {
 		boolean result = false;
-		int[] frequency = diceValueFrequency(dice);
-		for (int i = 0; i < frequency.length; i++) {
+		int[] result6 = new int[6];
+		for (int i = 0; i < 5; i++) {
+			result6[dice[i] - 1]++;
+		}
+		for (int i = 0; i < result6.length; i++) {
 			if (exact) {
-				if (frequency[i] == n)
+				if (result6[i] == n)
 					return true;
 			} else {
-				if (frequency[i] >= n)
+				if (result6[i] >= n)
 					return true;
 			}
-		}
-		return result;
-	}
-
-	private static int[] diceValueFrequency(int[] dice) {
-		int[] result = new int[6];
-		for (int i = 0; i < 5; i++) {
-			result[dice[i] - 1]++;
 		}
 		return result;
 	}
