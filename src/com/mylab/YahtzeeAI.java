@@ -255,9 +255,9 @@ public class YahtzeeAI {
 		case FULL_HOUSE:
 			return (isNOfAKind(3, dice, true) && isNOfAKind(2, dice, true));
 		case SMALL_STRAIGHT:
-			return isStraight(4, dice);
+			return isSmallStraight(dice);
 		case LARGE_STRAIGHT:
-			return isStraight(5, dice);
+			return isLargeStraight(dice);
 		case YAHTZEE:
 			return isNOfAKind(5, dice, false);
 		case CHANCE:
@@ -335,15 +335,29 @@ public class YahtzeeAI {
 		return result;
 	}
 
-	private static boolean isStraight(int n, int[] dice) {
+	private static boolean isSmallStraight(int[] dice) {
 		int[] frequency = diceValueFrequency(dice);
-		for (int i = 0; i < (frequency.length - n + 1); i++) {
+		for (int i = 0; i < (frequency.length - 4 + 1); i++) {
 			int nInARow = 0;
-			for (int j = 0; j < n; j++) {
+			for (int j = 0; j < 4; j++) {
 				if (frequency[i + j] > 0)
 					nInARow++;
 			}
-			if (nInARow == n)
+			if (nInARow == 4)
+				return true;
+		}
+		return false;
+	}
+
+	private static boolean isLargeStraight(int[] dice) {
+		int[] frequency = diceValueFrequency(dice);
+		for (int i = 0; i < (frequency.length - 5 + 1); i++) {
+			int nInARow = 0;
+			for (int j = 0; j < 5; j++) {
+				if (frequency[i + j] > 0)
+					nInARow++;
+			}
+			if (nInARow == 5)
 				return true;
 		}
 		return false;
