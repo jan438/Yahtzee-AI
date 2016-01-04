@@ -120,8 +120,8 @@ public class YahtzeeAI {
 				DiceSelection selectionCombo = allSelections.get(name);
 				selectedDice = selectionCombo.getDiceSelection();
 				selectionCombo.resetEValue();
-				selectionCombo.setDiceCombinations(generateDiceCombinations(selectedDice, dice));
-				Iterator<DiceCombination> it = selectionCombo.getDiceCombinationsIterator();
+				List<DiceCombination> listDiceCombinations = generateDiceCombinations(selectedDice, dice);		
+				Iterator<DiceCombination> it = listDiceCombinations.iterator();
 				while (it.hasNext()) {
 					DiceCombination diceCombo = it.next();
 					int[] comboDice = diceCombo.getCombination();

@@ -1,12 +1,9 @@
 package com.mylab;
 
-import java.util.*;
-
 public class DiceSelection {
 
 	private boolean[] selection = new boolean[5];
 	private String name;
-	private List<DiceCombination> allDiceCombinations = new ArrayList<DiceCombination>();
 	private double evalue = 0.0;
 
 	public DiceSelection(boolean[] arr) {
@@ -39,21 +36,12 @@ public class DiceSelection {
 		evalue = 0.0;
 	}
 
-	public void setDiceCombinations(List<DiceCombination> list) {
-		allDiceCombinations = list;
-	}
-
 	public void addEValue(double eval) {
 		evalue += eval;
 	}
 
 	public double getEValue() {
 		return evalue;
-	}
-
-	public Iterator<DiceCombination> getDiceCombinationsIterator() {
-		Iterator<DiceCombination> it = allDiceCombinations.iterator();
-		return it;
 	}
 
 }
