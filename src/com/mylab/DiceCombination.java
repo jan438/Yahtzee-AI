@@ -17,18 +17,13 @@ public class DiceCombination {
 	public void updateCombination(int cat, int sc, boolean[] selectedDice) {
 		category = cat;
 		score = sc;
-		updateProbability(selectedDice);
-		eValue = probability * (double) score;
-	}
-
-	private void updateProbability(boolean[] diceSelections) {
 		int diceRerolled = 0;
-		for (int i = 0; i < diceSelections.length; i++) {
-			if (diceSelections[i] == true)
+		for (int i = 0; i < selectedDice.length; i++) {
+			if (selectedDice[i] == true)
 				diceRerolled++;
 		}
 		probability = Math.pow(1.0 / 6.0, diceRerolled);
-
+		eValue = probability * (double) score;
 	}
 
 	public boolean[] getNonmatchingDiceForReroll(int[] dice) {
