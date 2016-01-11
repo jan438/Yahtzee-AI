@@ -14,7 +14,7 @@ public class DiceCombination {
 		combination = dice;
 	}
 
-	public void updateCombination(int[] dice, int cat, int sc, boolean[] selectedDice) {
+	public void updateCombination(int cat, int sc, boolean[] selectedDice) {
 		category = cat;
 		score = sc;
 		updateProbability(selectedDice);

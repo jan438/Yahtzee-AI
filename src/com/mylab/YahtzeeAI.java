@@ -122,7 +122,7 @@ public class YahtzeeAI {
 					int category = chooseBestCategory(comboDice);
 					boolean isValid = isDiceValidForCategory(comboDice, category);
 					int score = calculateCategoryScore(category, isValid, comboDice);
-					diceCombo.updateCombination(dice, category, score, selectedDice);
+					diceCombo.updateCombination(category, score, selectedDice);
 					double eValue = diceCombo.getEValue();
 					selectionCombo.addEValue(eValue);
 				}
@@ -153,7 +153,7 @@ public class YahtzeeAI {
 				dice[i] = die;
 			}
 		}
-		sortdices(dice);
+//		sortdices(dice);
 	}
 
 	private static void sortdices(int[] dice) {
@@ -231,7 +231,7 @@ public class YahtzeeAI {
 				}
 			}
 		}
-		System.out.println("CountDiceCombinations: " + countDiceCombinations);
+//		System.out.println("CountDiceCombinations: " + countDiceCombinations);
 		return result;
 	}
 
@@ -255,7 +255,7 @@ public class YahtzeeAI {
 	}
 
 	private static boolean isDiceValidForCategory(int[] dice, int category) {
-		sortdices(dice);
+//		sortdices(dice);
 		if (category >= ONES && category <= SIXES) {
 			for (int i = 0; i < 5; i++) {
 				if (dice[i] == category)
