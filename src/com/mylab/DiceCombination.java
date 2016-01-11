@@ -52,20 +52,8 @@ public class DiceCombination {
 		return combination;
 	}
 
-	public int getCategory() {
-		return category;
-	}
-
-	public int getScore() {
-		return score;
-	}
-
 	public double getEValue() {
 		return eValue;
-	}
-
-	public double getProbability() {
-		return probability;
 	}
 
 	public String toString() {
