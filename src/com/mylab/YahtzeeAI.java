@@ -122,7 +122,8 @@ public class YahtzeeAI {
 					int category = chooseBestCategory(comboDice);
 					boolean isValid = isDiceValidForCategory(comboDice, category);
 					int score = 0;
-					if (isValid) score = calculateCategoryScore(category, comboDice);
+					if (isValid)
+						score = calculateCategoryScore(category, comboDice);
 					diceCombo.updateCombination(category, score, selectedDice);
 					double eValue = diceCombo.getEValue();
 					selectionCombo.addEValue(eValue);
@@ -143,7 +144,8 @@ public class YahtzeeAI {
 		System.out.println("Todo " + isNOfAKind(5, dice, false));
 		System.out.println("Dice are valid for this category: " + isValid);
 		int score = 0;
-		if (isValid) score = calculateCategoryScore(category, dice);
+		if (isValid)
+			score = calculateCategoryScore(category, dice);
 		System.out.println("Score for this category: " + score);
 		updateScore(category, score);
 	}
@@ -245,7 +247,8 @@ public class YahtzeeAI {
 			if (categoryHasBeenChosen[i] == false) {
 				boolean isValid = isDiceValidForCategory(dice, i);
 				int score = 0;
-				if (isValid) score = calculateCategoryScore(i, dice);
+				if (isValid)
+					score = calculateCategoryScore(i, dice);
 				if (score > highestScore) {
 					highestScore = score;
 					categoryIndex = i;
