@@ -121,7 +121,8 @@ public class YahtzeeAI {
 					int[] comboDice = diceCombo.getCombination();
 					int category = chooseBestCategory(comboDice);
 					boolean isValid = isDiceValidForCategory(comboDice, category);
-					int score = calculateCategoryScore(category, isValid, comboDice);
+					int score = 0;
+					if (isValid) score = calculateCategoryScore(category, comboDice);
 					diceCombo.updateCombination(category, score, selectedDice);
 					double eValue = diceCombo.getEValue();
 					selectionCombo.addEValue(eValue);
@@ -141,7 +142,8 @@ public class YahtzeeAI {
 		boolean isValid = isDiceValidForCategory(dice, category);
 		System.out.println("Todo " + isNOfAKind(5, dice, false));
 		System.out.println("Dice are valid for this category: " + isValid);
-		int score = calculateCategoryScore(category, isValid, dice);
+		int score = 0;
+		if (isValid) score = calculateCategoryScore(category, dice);
 		System.out.println("Score for this category: " + score);
 		updateScore(category, score);
 	}
@@ -153,7 +155,7 @@ public class YahtzeeAI {
 				dice[i] = die;
 			}
 		}
-//		sortdices(dice);
+		// sortdices(dice);
 	}
 
 	private static void sortdices(int[] dice) {
@@ -231,7 +233,8 @@ public class YahtzeeAI {
 				}
 			}
 		}
-//		System.out.println("CountDiceCombinations: " + countDiceCombinations);
+		// System.out.println("CountDiceCombinations: " +
+		// countDiceCombinations);
 		return result;
 	}
 
@@ -241,7 +244,8 @@ public class YahtzeeAI {
 		for (int i = 1; i < 16; i++) { // sloppy, fix later.
 			if (categoryHasBeenChosen[i] == false) {
 				boolean isValid = isDiceValidForCategory(dice, i);
-				int score = calculateCategoryScore(i, isValid, dice);
+				int score = 0;
+				if (isValid) score = calculateCategoryScore(i, dice);
 				if (score > highestScore) {
 					highestScore = score;
 					categoryIndex = i;
@@ -255,7 +259,7 @@ public class YahtzeeAI {
 	}
 
 	private static boolean isDiceValidForCategory(int[] dice, int category) {
-//		sortdices(dice);
+		// sortdices(dice);
 		if (category >= ONES && category <= SIXES) {
 			for (int i = 0; i < 5; i++) {
 				if (dice[i] == category)
@@ -282,34 +286,30 @@ public class YahtzeeAI {
 		}
 	}
 
-	private static int calculateCategoryScore(int category, boolean isValid, int[] dice) {
-		if (isValid) {
-			switch (category) {
-			case ONES:
-			case TWOS:
-			case THREES:
-			case FOURS:
-			case FIVES:
-			case SIXES:
-				return sumDice(dice, category);
-			case THREE_OF_A_KIND:
-				return sumDice(dice, 0);
-			case FOUR_OF_A_KIND:
-				return sumDice(dice, 0);
-			case FULL_HOUSE:
-				return FULL_HOUSE_SCORE;
-			case SMALL_STRAIGHT:
-				return SMALL_STRAIGHT_SCORE;
-			case LARGE_STRAIGHT:
-				return LARGE_STRAIGHT_SCORE;
-			case YAHTZEE:
-				return YAHTZEE_SCORE;
-			case CHANCE:
-				return sumDice(dice, 0);
-			default:
-				return 0;
-			}
-		} else {
+	private static int calculateCategoryScore(int category, int[] dice) {
+		switch (category) {
+		case ONES:
+		case TWOS:
+		case THREES:
+		case FOURS:
+		case FIVES:
+		case SIXES:
+			return sumDice(dice, category);
+		case THREE_OF_A_KIND:
+			return sumDice(dice, 0);
+		case FOUR_OF_A_KIND:
+			return sumDice(dice, 0);
+		case FULL_HOUSE:
+			return FULL_HOUSE_SCORE;
+		case SMALL_STRAIGHT:
+			return SMALL_STRAIGHT_SCORE;
+		case LARGE_STRAIGHT:
+			return LARGE_STRAIGHT_SCORE;
+		case YAHTZEE:
+			return YAHTZEE_SCORE;
+		case CHANCE:
+			return sumDice(dice, 0);
+		default:
 			return 0;
 		}
 	}
