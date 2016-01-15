@@ -26,27 +26,27 @@ public class DiceCombination {
 		eValue = probability * (double) score;
 	}
 
-	public boolean[] getNonmatchingDiceForReroll(int[] dice) {
-		boolean[] diceSelections = new boolean[5];
-		for (int i = 0; i < diceSelections.length; i++) {
-			diceSelections[i] = true;
-		}
-		List<Integer> diceList = new ArrayList<Integer>();
-		for (int i = 0; i < dice.length; i++) {
-			diceList.add(dice[i]);
-		}
-		for (int i = 0; i < combination.length; i++) {
-			Integer die = combination[i];
-			int index = diceList.indexOf(die);
-			if (index != -1) {
-				diceList.set(index, 0);
-				diceSelections[index] = false;
-			} else {
-
-			}
-		}
-		return diceSelections;
-	}
+//	public boolean[] getNonmatchingDiceForReroll(int[] dice) {
+//		boolean[] diceSelections = new boolean[5];
+//		for (int i = 0; i < diceSelections.length; i++) {
+//			diceSelections[i] = true;
+//		}
+//		List<Integer> diceList = new ArrayList<Integer>();
+//		for (int i = 0; i < dice.length; i++) {
+//			diceList.add(dice[i]);
+//		}
+//		for (int i = 0; i < combination.length; i++) {
+//			Integer die = combination[i];
+//			int index = diceList.indexOf(die);
+//			if (index != -1) {
+//				diceList.set(index, 0);
+//				diceSelections[index] = false;
+//			} else {
+//
+//			}
+//		}
+//		return diceSelections;
+//	}
 
 	public int[] getCombination() {
 		return combination;

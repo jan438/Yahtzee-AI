@@ -107,6 +107,7 @@ public class YahtzeeAI {
 				e.printStackTrace();
 			}
 			rollDice(rolls, dice, selectedDice);
+//			dice[0] = 1; dice[1] = 2; dice[2] = 3; dice[3] = 4; dice[4] = 5;
 			System.out.println("Dice for roll " + rolls + ": " + diceToString(dice));
 			DiceSelection bestSelection = null;
 			double bestEValue = -1.0;
@@ -133,7 +134,7 @@ public class YahtzeeAI {
 					bestEValue = selectionCombo.getEValue();
 				}
 			}
-			System.out.println("The best selection to choose is: " + bestSelection.toString());
+			System.out.println("The best selection to choose is: " + bestSelection.toString() + " evalue: " + bestSelection.getEValue());
 			selectedDice = bestSelection.getDiceSelection();
 		}
 		System.out.println("Turn is over.");
