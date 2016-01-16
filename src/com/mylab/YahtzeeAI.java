@@ -100,7 +100,6 @@ public class YahtzeeAI {
 		generateAllDiceSelections();
 		boolean[] selectedDice = new boolean[5];
 		for (int rolls = 0; rolls < 2; rolls++) {
-			System.out.println("Rolling dice...");
 			try {
 				Thread.sleep(delay);
 			} catch (InterruptedException e) {
@@ -108,7 +107,7 @@ public class YahtzeeAI {
 			}
 			rollDice(rolls, dice, selectedDice);
 //			dice[0] = 1; dice[1] = 2; dice[2] = 3; dice[3] = 4; dice[4] = 5;
-			System.out.println("Dice for roll " + rolls + ": " + diceToString(dice));
+			System.out.println("Dice for roll... " + rolls + ": " + diceToString(dice));
 			DiceSelection bestSelection = null;
 			double bestEValue = -1.0;
 			for (String name : allSelections.keySet()) {
